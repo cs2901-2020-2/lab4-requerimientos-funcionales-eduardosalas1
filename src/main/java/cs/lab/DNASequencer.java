@@ -5,28 +5,42 @@ import java.util.logging.Logger;
 
 public class  DNASequencer {
 
-    static final Logger logger = Logger.getLogger(DNASequencer.class.getName());
+    private static final Logger logger = Logger.getLogger(DNASequencer.class.getName());
+    
     public DNASequencer() {
         logger.info("Starting sequencer...");
     }
 
-    public String calculate(List<String> part){
+    public String calculate(List<String> parts){
 
-        for(int i = 0 ; i < part.size() ; i++){
-            String subsequence1 = part.get(i);
-            for(int j = i+1 ; j < part.size() ; j++){
-                String subsequence2 = part.get(j);
-                    for(int k = 0 ; k < subsequence1.length() ; k++){
-                        
-
-
-                    }
-
-            }
+        if(parts.size() > 160000){
+            throw new SubSizeEx("Too many subsequences.");
+        }        
+        
+        for(String word:parts){
+            if(word.length() > 200)
+                throw new SubLenEx("The lenght of a subsequence is too large.");
         }
 
+        
+        StringBuilder Resultado = new StringBuilder();
+        Resultado.append(parts.get(0));
 
-        return "AGATTACAGA";
+        for (int itrStr = 1; itrStr < parts.size(); itrStr++) {
+            String elementoDeLista = parts.get(itrStr);
+            StringBuilder sumOfChars = new StringBuilder();
+
+            for (int j = 0; j < elementoDeLista.length(); j++){
+                char caracter = elementoDeLista.charAt(j);
+                String cStr = Character.toString(caracter);
+                sumOfChars.append(cStr);
+
+                if(!(Resultado.toString()).contains(sumOfChars)){
+                    Resultado.append(cStr);
+                }
+            }
+        }
+        return Resultado.toString();
     }
 
     public static void main(String args[]){
