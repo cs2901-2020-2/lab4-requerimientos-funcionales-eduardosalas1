@@ -11,7 +11,7 @@ public class  DNASequencer {
         logger.info("Starting sequencer...");
     }
 
-    public String calculate(List<String> parts){
+    public String calculate(List<String> parts) throws SubSizeEx, SubLenEx{
 
         if(parts.size() > 160000){
             throw new SubSizeEx("Too many subsequences.");
@@ -20,7 +20,7 @@ public class  DNASequencer {
         for(String word:parts){
             if(word.length() > 200)
                 throw new SubLenEx("The lenght of a subsequence is too large.");
-        }
+            }
 
         
         StringBuilder Resultado = new StringBuilder();
